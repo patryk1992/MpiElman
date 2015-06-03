@@ -1,7 +1,8 @@
 #include "elman.h"
+#include <iostream>
+using namespace std;
 
-
-elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, int tempoNauki, char* wejscie)
+elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, char* wejscie)
 {
 	srand (static_cast <unsigned> (time(0)));
 	NEURONY_WEJSCIOWE = neuronyWeWy;
@@ -89,7 +90,10 @@ void elman::elmanNetwork()
         
 		//strcat(sw,"###TRENOWANIE###\n");
 
-		sww->append("###TRENOWANIE###\n");
+
+//        sww->append("###TRENOWANIE###\n";
+        cout<<"###TRENOWANIE###\n";
+
         przypiszLosoweWagi();
 
         while (!koniecPetli)
@@ -153,7 +157,7 @@ void elman::elmanNetwork()
 		//strcat(sw,"Liczba iteracji = ");
 		//strcat(sw,toString(iteracje));
 		//strcat(sw,"###KONIEC TRENOWANIA###\n");
-		sww->append("Liczba iteracji = "+toString(iteracje)+"\n###KONIEC TRENOWANIA###\n");
+		cout<<"Liczba iteracji = "+toString(iteracje)+"\n###KONIEC TRENOWANIA###\n";
         return;
     }
 
@@ -170,25 +174,15 @@ void elman::testNetwork()
 		float dfm = 0;
 
 		//strcat(sw,"###start sieci###\n"); //ew const char *strFrom = "###start sieci###\n";
-		sww->append("###start sieci###\n");
+		cout<<"###start sieci###\n";
 
         for (int test = 0; test < MAX_TESTOW; test++)
         {
-            while ((znak == false) && !Krok)
-            {
 
-            }
-            if (znak == false)
-            {
 
-                Krok = false;
-            }
-
-            if ((test == 0) && znak)
-            { }
 
 			//strcat(sw,"\nWejscie:(0)\n");
-			sww->append("\nWejscie:(0)\n");
+        	cout<<"\nWejscie:(0)\n";
 
             sprzezeniePrzod();
 
@@ -203,12 +197,12 @@ void elman::testNetwork()
 
                 
 				//strcat(sw,"Wejscie\t| szansa %:");
-				sww->append("Wejscie\t| szansa %:");
+				cout<<"Wejscie\t| szansa %:";
 
                 for (int i = 0; i < NEURONY_WYJSCIOWE; i++)
                 {
 					//strcat(sw,"\n");
-					sww->append("\n");
+					cout<<"\n";
 
                     dfm = aktualne[i];
                     //sw += i + "\t| " + Math.Round(dfm, 3) + " " + "\t"; c#
@@ -218,19 +212,19 @@ void elman::testNetwork()
 					//strcat(sw,toString((myRoundD(dfm*1000)/1000)));
 					//strcat(sw," \t");
 
-					sww->append(toString(i)+"\t| ");
-					sww->append(toString((myRoundD(dfm*1000)/1000)));
+                    cout<<toString(i)+"\t| ";
+                    cout<<toString((myRoundD(dfm*1000)/1000));
 
 					if (MaxD(aktualne,NEURONY_WYJSCIOWE) == aktualne[i])
                     {
 						//strcat(sw," <=Przewidziana\n");
-						sww->append(" <=Przewidziana\n");
+						 cout<<" <=Przewidziana\n";
 
                     }
                     else
                     {
                         //strcat(sw,"\n");
-						sww->append("\n");
+						cout<<"\n";
 
                     }
 
@@ -244,7 +238,7 @@ void elman::testNetwork()
                 }
 
                 //strcat(sw,"\n");
-				sww->append("\n");
+				cout<<"\n";
 
 
                 indeks++;
@@ -263,7 +257,7 @@ void elman::testNetwork()
 					//strcat(sw,toString(losowaLiczba));
 					//strcat(sw,")\n");
 
-					sww->append("Wejscie("+toString(losowaLiczba)+")\n");
+					cout<<"Wejscie("+toString(losowaLiczba)+")\n";
                 }
                 for (int i = 0; i < NEURONY_WEJSCIOWE; i++)
                 {
@@ -292,16 +286,16 @@ void elman::testNetwork()
             if ((indeks > NEURONY_WYJSCIOWE - 2) && (sukces == true))
             {
                 //sw += "Sukces."; C#
-                //sw += "Wykonano " + test + " testów.";
+                //sw += "Wykonano " + test + " testï¿½w.";
 
 				/*strcat(sw,"Sukces.");
 				strcat(sw,"Wykonano ");
 				strcat(sw,toString(test));
 				strcat(sw," testow");*/
-				sww->append("Sukces.\nWykonano "+toString(test)+" testow");
+				cout<<"Sukces.\nWykonano "+toString(test)+" testow";
 
-				sww3->append("Sukces!\nWykonano "+toString(test)+" testow");
-                //sw3 = "Sukces!\nWykonano ";// + test + " testów."; c#
+				cout<<"Sukces!\nWykonano "+toString(test)+" testow";
+                //sw3 = "Sukces!\nWykonano ";// + test + " testï¿½w."; c#
 				//strcat(sw3,toString(test));
 				//strcat(sw3," testow");
 
@@ -311,29 +305,20 @@ void elman::testNetwork()
             {
                 //sw += "\nNiepowodzenie.";
 				//strcat(sw,"\nNiepowodzenie.");
-				sww->append("\nNiepowodzenie.");
+				cout<<"\nNiepowodzenie.";
                 if (test > MAX_TESTOW)
                 {
-                    //sw += "Wykonano" + test + " testów bez sukcesu.";
+                    //sw += "Wykonano" + test + " testï¿½w bez sukcesu.";
 					//strcat(sw,"Wykonano ");
 					//strcat(sw,toString(test));
 					//strcat(sw," testow bez sukcesu");
-					sww->append("Wykonano "+toString(test)+" testow bez sukcesu");
-					sww2->append(sww->c_str());
-					//strcat(sw2,sw);
+					cout<<"Wykonano "+toString(test)+" testow bez sukcesu";
 
-					//delete[] sw;
-					//sw=new char[1];
-					sww->clear();
 
                     break;
                 }
             }
-            //strcat(sw2,sw);
-			sww2->append(sww->c_str());
-			sww->clear();
-			//delete[] sw;
-			///sw=new char[1];
+
         }
         
         return;
@@ -458,9 +443,7 @@ void elman::przypiszLosoweWagi()
 
 elman::~elman(void)
 {
-	sww2->clear();
-	sww->clear();
-	sww3->clear();
+
 
 	delete sww;
 	delete sww2;

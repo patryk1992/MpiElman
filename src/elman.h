@@ -10,7 +10,7 @@
 class elman
 {
 public:
-	elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, int tempoNauki, char* wejscie);
+	elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, char* wejscie);
 	~elman(void);
 	void testNetwork();
 	void elmanNetwork();
@@ -55,7 +55,7 @@ private:
 	
 	int getRandomNumber()
 	{
-		return rand() % NEURONY_WEJSCIOWE; //ew NEURONYWEJSCIOWE +1 jesli ta wartoœæ ma byæ losowana
+		return rand() % NEURONY_WEJSCIOWE; //ew NEURONYWEJSCIOWE +1 jesli ta wartoï¿½ï¿½ ma byï¿½ losowana
 	}
 
 	double sigmoid(double val)

@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 //	MPI::Finalize();
 
 	char* we = "0 0 0 1 0 0\n0 0 0 0 0 1\n0 0 1 0 0 0\n";
-	elman* e = new elman(100,6,1,1,we);
+	elman* e = new elman(10000,6,1,0.5,we);
 
 	cout<<"elman\n";
 	e->elmanNetwork();
