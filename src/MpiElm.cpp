@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 	cout<<"elman\n";
 	e->elmanNetwork();
 
-	cout<<"test\n";
+	cout<<"test2\n";
 	e->testNetwork();
 
 	cout<<"Wcisnij klawisz aby kontynuowac...";
