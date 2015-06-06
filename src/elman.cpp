@@ -186,7 +186,7 @@ void elman::testNetwork(int* losowaTab)
 
 
 			//strcat(sw,"\nWejscie:(0)\n");
-        	cout<<"\nWejscie:(0)\n";
+        	//cout<<"\nWejscie:(0)\n";
 
             sprzezeniePrzod();
 
@@ -201,12 +201,12 @@ void elman::testNetwork(int* losowaTab)
 
                 
 				//strcat(sw,"Wejscie\t| szansa %:");
-				cout<<"Wejscie\t| szansa %:";
+				//cout<<"Wejscie\t| szansa %:";
 
                 for (int i = 0; i < NEURONY_WYJSCIOWE; i++)
                 {
 					//strcat(sw,"\n");
-					cout<<"\n";
+					//cout<<"\n";
 
                     dfm = aktualne[i];
                     //sw += i + "\t| " + Math.Round(dfm, 3) + " " + "\t"; c#
@@ -216,19 +216,19 @@ void elman::testNetwork(int* losowaTab)
 					//strcat(sw,toString((myRoundD(dfm*1000)/1000)));
 					//strcat(sw," \t");
 
-                    cout<<toString(i)+"\t| ";
-                    cout<<toString((myRoundD(dfm*1000)/1000));
+                    //cout<<toString(i)+"\t| ";
+                    //cout<<toString((myRoundD(dfm*1000)/1000));
 
 					if (MaxD(aktualne,NEURONY_WYJSCIOWE) == aktualne[i])
                     {
 						//strcat(sw," <=Przewidziana\n");
-						 cout<<" <=Przewidziana\n";
+						 //cout<<" <=Przewidziana\n";
 
                     }
                     else
                     {
                         //strcat(sw,"\n");
-						cout<<"\n";
+						//cout<<"\n";
 
                     }
 
@@ -242,7 +242,7 @@ void elman::testNetwork(int* losowaTab)
                 }
 
                 //strcat(sw,"\n");
-				cout<<"\n";
+				//cout<<"\n";
 
 
                 indeks++;
@@ -262,7 +262,7 @@ void elman::testNetwork(int* losowaTab)
 					//strcat(sw,toString(losowaLiczba));
 					//strcat(sw,")\n");
 
-					cout<<"Wejscie("+toString(losowaLiczba)+")\n";
+					//cout<<"Wejscie("+toString(losowaLiczba)+")\n";
                 }
                 for (int i = 0; i < NEURONY_WEJSCIOWE; i++)
                 {
@@ -297,7 +297,7 @@ void elman::testNetwork(int* losowaTab)
 				strcat(sw,"Wykonano ");
 				strcat(sw,toString(test));
 				strcat(sw," testow");*/
-				cout<<"Sukces.\nWykonano "+toString(test)+" testow";
+				//cout<<"Sukces.\nWykonano "+toString(test)+" testow";
 
 				cout<<"Sukces!\nWykonano "+toString(test)+" testow";
                 //sw3 = "Sukces!\nWykonano ";// + test + " test�w."; c#

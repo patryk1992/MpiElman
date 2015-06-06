@@ -31,6 +31,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 int main(int argc, char *argv[]) {
+	srand (static_cast <unsigned> (time(0)));
 	int n, rank, size, i;
 	double PI25DT = 3.141592653589793238462643;
 	double mypi, pi, h, sum, x;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 	int dlugscSekwencjiDoPrzewidzenia=3;
 	int inputNeurons=6;
 
-	static double mpiWejscie[2][3][6] = {{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}},	{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}}};
+	static double mpiWejscie[2][3][6] = {{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}},	{{0.0, 1.0, 0.0, 0.0, 0.0, 0.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0},{0.0, 0.0, 0.0, 1.0, 0.0, 0.0}}};
 
 	int* testowaTablica =  new int[10000];
 
@@ -87,12 +88,12 @@ int main(int argc, char *argv[]) {
 
 	}
 	cout<<"elman\n";
-	e->elmanNetwork();
-	MPI::COMM_WORLD.Barrier();
-//	cout<<"test2\n";
+				e->elmanNetwork();
+				MPI::COMM_WORLD.Barrier();
+			//	cout<<"test2\n";
 
 
-	e->testNetwork(testowaTablica);
+				e->testNetwork(testowaTablica);
 
 	//delete e;
 
