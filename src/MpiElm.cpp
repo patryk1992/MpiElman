@@ -41,6 +41,15 @@ int main(int argc, char *argv[]) {
 
 	static double mpiWejscie[2][3][6] = {{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}},	{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}}};
 
+	int* testowaTablica =  new int[10000];
+
+	for(int i = 0 ; i< 10000; i++)
+	{
+		testowaTablica[i] =  rand() % inputNeurons;
+
+	}
+
+
 	MPI::Init(argc, argv);
 	size = MPI::COMM_WORLD.Get_size();
 	rank = MPI::COMM_WORLD.Get_rank();
@@ -81,7 +90,9 @@ int main(int argc, char *argv[]) {
 	e->elmanNetwork();
 	MPI::COMM_WORLD.Barrier();
 //	cout<<"test2\n";
-	e->testNetwork();
+
+
+	e->testNetwork(testowaTablica);
 
 	//delete e;
 
