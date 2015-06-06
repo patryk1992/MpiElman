@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 	int dlugscSekwencjiDoPrzewidzenia=3;
 	int inputNeurons=6;
 
-	double mpiWejscie[numnerOfProcesses][dlugscSekwencjiDoPrzewidzenia][inputNeurons] = {{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}},	{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}}};
+	static double mpiWejscie[2][3][6] = {{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}},	{{0.0, 0.0, 0.0, 1.0, 0.0, 0.0},{0.0, 0.0, 0.0, 0.0, 0.0, 1.0},{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}}};
 
 	MPI::Init(argc, argv);
 	size = MPI::COMM_WORLD.Get_size();
@@ -47,14 +47,28 @@ int main(int argc, char *argv[]) {
 
 	cout << "size" << size <<endl;
 	n=1000; // number of intervals
-	char* we = "1 0 0 0 0 0\n0 0 0 0 0 1\n0 0 0 0 0 1\n:0 1 0 0 0 0\n0 0 0 0 0 1\n0 0 0 0 0 1\n:0 0 1 0 0 0\n0 0 0 0 0 1\n0 0 0 0 0 1\n";
+
 	MPI::COMM_WORLD.Bcast(&(mpiWejscie[0][0][0]),numnerOfProcesses*dlugscSekwencjiDoPrzewidzenia*inputNeurons, MPI::DOUBLE, 0);
 
-	vector<std::string> tabWe=split(we,':');
 
-	char *cstr = new char[tabWe[rank].length() + 1];
-	strcpy(cstr, tabWe[rank].c_str());
-	//elman* e = new elman(10000,inputNeurons,1,0.5,cstr);
+	double **wej = new double*[3];
+
+	for(int i=0; i<3; i++)
+	{
+		wej[i] = new double[6];
+
+	}
+
+	for(int i=0; i<3; i++)
+	{
+		for(int j=0; j<6; j++)
+		{
+			wej[i][j]=mpiWejscie[0][i][j];
+
+		}
+	}
+
+	elman* e = new elman(10000,inputNeurons,1,0.5,wej);
 
 //	MPI::COMM_WORLD.Reduce(&mypi, &pi, 1, MPI::DOUBLE, MPI::SUM, 0);
 	if (rank == 0){
@@ -64,10 +78,10 @@ int main(int argc, char *argv[]) {
 
 
 	cout<<"elman\n";
-	//e->elmanNetwork();
+	e->elmanNetwork();
 
 	cout<<"test2\n";
-	//e->testNetwork();
+	e->testNetwork();
 
 	cout<<"Wcisnij klawisz aby kontynuowac...";
 

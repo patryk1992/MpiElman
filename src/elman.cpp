@@ -2,11 +2,14 @@
 #include <iostream>
 using namespace std;
 
-elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, char* wejscie)
+elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, double** wejscie)
 {
 	srand (static_cast <unsigned> (time(0)));
 	NEURONY_WEJSCIOWE = neuronyWeWy;
-	int counter = strlen(wejscie)/NEURONY_WEJSCIOWE;
+
+	int counter = sizeof(wejscie)/sizeof(double);
+	counter = counter/NEURONY_WEJSCIOWE;
+
 	ctrD = counter;
 	_przyklad = new double*[counter];
 
@@ -66,7 +69,7 @@ elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNa
 		for (int i = 0; i < NEURONY_WYJSCIOWE; i++)
 		{
 			
-			double ttmp = std::strtod(&wejscie[j*NEURONY_WEJSCIOWE+i],NULL);//Double.Parse(tmp[j * NEURONY_WYJSCIOWE + i]);
+			double ttmp = wejscie[j][i]; ///Double.Parse(tmp[j * NEURONY_WYJSCIOWE + i]);
 			_przyklad[j][i] = ttmp;
 		}           
 	}

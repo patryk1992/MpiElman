@@ -10,7 +10,7 @@
 class elman
 {
 public:
-	elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, char* wejscie);
+	elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNauki, double** wejscie);
 	~elman(void);
 	void testNetwork();
 	void elmanNetwork();
