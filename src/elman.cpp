@@ -165,11 +165,11 @@ void elman::elmanNetwork()
     }
 
 
-void elman::testNetwork()
+void elman::testNetwork(int* losowaLiczba)
     {
 
         int indeks = 0;
-        int losowaLiczba = 0;
+        int licznik_losowaLiczba = 0;
         int przewidywana = 0;
         bool stopPrzykladu = false;
         bool sukces = false;
@@ -192,7 +192,7 @@ void elman::testNetwork()
             stopPrzykladu = false;
             sukces = false;
             indeks = 0;
-            losowaLiczba = 0;
+
             przewidywana = 0;
 
             while (stopPrzykladu == false)
@@ -251,7 +251,7 @@ void elman::testNetwork()
 
                 }
 
-                losowaLiczba = getRandomNumber();
+                licznik_losowaLiczba++; // = getRandomNumber();
                 if (stopPrzykladu != true)
                 {
                     //sw += "Wejscie" + "(" + losowaLiczba + ") \n"; c#
@@ -260,11 +260,11 @@ void elman::testNetwork()
 					//strcat(sw,toString(losowaLiczba));
 					//strcat(sw,")\n");
 
-					cout<<"Wejscie("+toString(losowaLiczba)+")\n";
+					cout<<"Wejscie("+toString(losowaLiczba[licznik_losowaLiczba])+")\n";
                 }
                 for (int i = 0; i < NEURONY_WEJSCIOWE; i++)
                 {
-                    if (i == losowaLiczba)
+                    if (i == losowaLiczba[licznik_losowaLiczba])
                     {
                         wejscia[i] = 1.0;
                         if (i == przewidywana)
@@ -322,7 +322,9 @@ void elman::testNetwork()
                 }
             }
 
+            licznik_losowaLiczba++;
         }
+
         
         return;
     }
