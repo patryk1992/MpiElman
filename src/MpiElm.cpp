@@ -32,9 +32,10 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 int main(int argc, char *argv[]) {
 	srand (static_cast <unsigned> (time(0)));
-	int n, rank, size, i;
+	int size = 0;
+	int rank =0;
 	double PI25DT = 3.141592653589793238462643;
-	double mypi, pi, h, sum, x;
+
 
 	int numnerOfProcesses=2;
 	int dlugscSekwencjiDoPrzewidzenia=3;
@@ -47,7 +48,6 @@ int main(int argc, char *argv[]) {
 	for(int i = 0 ; i< 10000; i++)
 	{
 		testowaTablica[i] =  rand() % inputNeurons;
-
 	}
 
 
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 	rank = MPI::COMM_WORLD.Get_rank();
 
 	cout << "size" << size <<endl;
-	n=1000; // number of intervals
+	int n=1000; // number of intervals
 
 	MPI::COMM_WORLD.Bcast(&(mpiWejscie[0][0][0]),numnerOfProcesses*dlugscSekwencjiDoPrzewidzenia*inputNeurons, MPI::DOUBLE, 0);
 
@@ -68,32 +68,50 @@ int main(int argc, char *argv[]) {
 		wej[i] = new double[6];
 
 	}
+	elman* k;
+	elman* e;
 
+	if (rank == 0){
 	for(int i=0; i<3; i++)
 	{
 		for(int j=0; j<6; j++)
 		{
-			wej[i][j]=mpiWejscie[rank][i][j];
+			wej[i][j]=mpiWejscie[0][i][j];
+
+		}
+	}
+	e = new elman(10000,inputNeurons,1,0.5,wej);
+	}
+
+	if (rank == 1){
+	for(int i=0; i<3; i++)
+	{
+		for(int j=0; j<6; j++)
+		{
+			wej[i][j]=mpiWejscie[1][i][j];
 
 		}
 	}
 
-	elman* e = new elman(10000,inputNeurons,1,0.5,wej);
-
+	k = new elman(10000,inputNeurons,1,0.5,wej);
+	}
 //	MPI::COMM_WORLD.Reduce(&mypi, &pi, 1, MPI::DOUBLE, MPI::SUM, 0);
 	if (rank == 0){
-		cout << "pi is approximately " << pi << ", Error is "
-				<< fabs(pi - PI25DT) << endl;
 
-
+		e->elmanNetwork();
+		e->testNetwork(testowaTablica);
 	}
+
+	if (rank == 1){
+
+			k->elmanNetwork();
+			k->testNetwork(testowaTablica);
+		}
 	cout<<"elman\n";
-				e->elmanNetwork();
-				MPI::COMM_WORLD.Barrier();
-			//	cout<<"test2\n";
 
 
-				e->testNetwork(testowaTablica);
+
+
 
 	//delete e;
 

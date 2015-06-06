@@ -8,7 +8,7 @@ elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNa
 	NEURONY_WEJSCIOWE = neuronyWeWy;
 
 	int counter = sizeof(wejscie)/sizeof(double);
-	counter = counter/NEURONY_WEJSCIOWE;
+	counter = 2;
 
 	ctrD = counter;
 	_przyklad = new double*[counter];
@@ -30,7 +30,7 @@ elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNa
 	NEURONY_UKRYTE = neuronyUkryte;
 	NEURONY_KONTEKSTOWE = neuronyUkryte;
 	TEMPO_NAUKI = tempoNauki;
-	ILOSC_POWTORZEN_TRENINGOWYCH = 4000;
+	ILOSC_POWTORZEN_TRENINGOWYCH = 10000;
 
 	WejscioweDoUkrytych = new double*[NEURONY_WEJSCIOWE+1];
 	for(int i =0;i<NEURONY_WEJSCIOWE+1;i++)
@@ -73,6 +73,9 @@ elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNa
 			_przyklad[j][i] = ttmp;
 		}           
 	}
+
+	cout << counter;
+	cout << NEURONY_WYJSCIOWE;
 
 	/*sw = new char[1];
 	sw2 = new char[1];
@@ -252,7 +255,7 @@ void elman::testNetwork(int* losowaTab)
 
                 }
 
-               losowaLiczba =losowaTab[licznik_losowaLiczba];
+               losowaLiczba = getRandomNumber();//losowaTab[licznik_losowaLiczba];
                 licznik_losowaLiczba++; // = getRandomNumber();
                 if (stopPrzykladu != true)
                 {
@@ -310,7 +313,7 @@ void elman::testNetwork(int* losowaTab)
             {
                 //sw += "\nNiepowodzenie.";
 				//strcat(sw,"\nNiepowodzenie.");
-				cout<<"\nNiepowodzenie.";
+				//cout<<"\nNiepowodzenie.";
                 if (test > MAX_TESTOW)
                 {
                     //sw += "Wykonano" + test + " test�w bez sukcesu.";
