@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 	e->elmanNetwork();
 	MPI::COMM_WORLD.Barrier();
 //	cout<<"test2\n";
-	//e->testNetwork();
+	e->testNetwork();
 
 	//delete e;
 
