@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 	{
 		for(int j=0; j<6; j++)
 		{
-			wej[i][j]=mpiWejscie[0][i][j];
+			wej[i][j]=mpiWejscie[rank][i][j];
 
 		}
 	}
@@ -76,18 +76,17 @@ int main(int argc, char *argv[]) {
 				<< fabs(pi - PI25DT) << endl;
 
 
-
+	}
 	cout<<"elman\n";
 	e->elmanNetwork();
-
-	cout<<"test2\n";
-	e->testNetwork();
-
-	cout<<"Wcisnij klawisz aby kontynuowac...";
+	MPI::COMM_WORLD.Barrier();
+//	cout<<"test2\n";
+	//e->testNetwork();
 
 	//delete e;
-	}
+
 	MPI::Finalize();
+	cout<<"Wcisnij klawisz aby kontynuowac...";
 	return 0;
 }
 
