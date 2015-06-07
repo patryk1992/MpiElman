@@ -63,11 +63,20 @@ int main(int argc, char *argv[]) {
 
 	double **wej = new double*[3];
 
+	double **wej2 = new double*[3];
+
+
 	for(int i=0; i<3; i++)
 	{
 		wej[i] = new double[6];
 
 	}
+
+	for(int i=0; i<3; i++)
+		{
+			wej2[i] = new double[6];
+
+		}
 	elman* k;
 	elman* e;
 
@@ -88,12 +97,12 @@ int main(int argc, char *argv[]) {
 	{
 		for(int j=0; j<6; j++)
 		{
-			wej[i][j]=mpiWejscie[1][i][j];
+			wej2[i][j]=mpiWejscie[1][i][j];
 
 		}
 	}
 
-	k = new elman(10000,inputNeurons,1,0.5,wej);
+	k = new elman(10000,inputNeurons,1,0.5,wej2);
 	}
 //	MPI::COMM_WORLD.Reduce(&mypi, &pi, 1, MPI::DOUBLE, MPI::SUM, 0);
 	if (rank == 0){

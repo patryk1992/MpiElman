@@ -8,7 +8,7 @@ elman::elman(int iloscTestow, int neuronyWeWy, int neuronyUkryte, double tempoNa
 	NEURONY_WEJSCIOWE = neuronyWeWy;
 
 	int counter = sizeof(wejscie)/sizeof(double);
-	counter = 2;
+	counter = 3;
 
 	ctrD = counter;
 	_przyklad = new double*[counter];
