@@ -255,7 +255,7 @@ void elman::testNetwork(int* losowaTab)
 
                 }
 
-               losowaLiczba = getRandomNumber();//losowaTab[licznik_losowaLiczba];
+               losowaLiczba = losowaTab[licznik_losowaLiczba];
                 licznik_losowaLiczba++; // = getRandomNumber();
                 if (stopPrzykladu != true)
                 {
