@@ -302,7 +302,7 @@ void elman::testNetwork(int* losowaTab)
 				strcat(sw," testow");*/
 				//cout<<"Sukces.\nWykonano "+toString(test)+" testow";
 
-				cout<<"Sukces!\nWykonano "+toString(test)+" testow";
+				cout<<"Sukces!\nWykonano "+toString(test)+" testow"<<endl;
                 //sw3 = "Sukces!\nWykonano ";// + test + " test�w."; c#
 				//strcat(sw3,toString(test));
 				//strcat(sw3," testow");

@@ -34,9 +34,7 @@ int main(int argc, char *argv[]) {
 	srand(static_cast<unsigned>(time(0)));
 	int size = 0;
 	int rank = 0;
-	double PI25DT = 3.141592653589793238462643;
-
-	int numnerOfProcesses = 2;
+	int iloscIteracji=10000;
 	int dlugscSekwencjiDoPrzewidzenia = 3;
 	int inputNeurons = 6;
 
@@ -46,87 +44,61 @@ int main(int argc, char *argv[]) {
 					{ 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0, 0.0,
 							0.0 } } };
 
-
-
 	MPI::Init(argc, argv);
 	size = MPI::COMM_WORLD.Get_size();
 	rank = MPI::COMM_WORLD.Get_rank();
-
+	int numnerOfProcesses = size;
 	double ***wejTab = new double**[numnerOfProcesses];
 	for (int i = 0; i < numnerOfProcesses; i++) {
 		wejTab[i] = new double*[dlugscSekwencjiDoPrzewidzenia];
 
 	}
 	for (int i = 0; i < numnerOfProcesses; i++) {
-			for (int j = 0; j < dlugscSekwencjiDoPrzewidzenia; j++) {
-				wejTab[i][j] = new double[inputNeurons];
+		for (int j = 0; j < dlugscSekwencjiDoPrzewidzenia; j++) {
+			wejTab[i][j] = new double[inputNeurons];
 
-			}
-
+		}
 
 	}
-	int dltestowejTablicy=1000;
+	int dltestowejTablicy = iloscIteracji+1;
 	int* testowaTablica = new int[dltestowejTablicy];
 	if (rank == 0) {
 
-			for (int i = 0; i < dltestowejTablicy; i++) {
-				testowaTablica[i] = rand() % inputNeurons;
-			}
-			cout << "testowaTablica[0]:" << testowaTablica[0] << endl;
+		for (int i = 0; i < dltestowejTablicy; i++) {
+			testowaTablica[i] = rand() % inputNeurons;
+		}
+		cout << "testowaTablica[0]:" << testowaTablica[0] << endl;
 	}
 
-	MPI::COMM_WORLD.Bcast(&(testowaTablica[0]),
-			dltestowejTablicy, MPI::INT, 0);
+	MPI::COMM_WORLD.Bcast(&(testowaTablica[0]), dltestowejTablicy, MPI::INT, 0);
 
-		cout << "size" << size << endl;
+	cout << "size" << size << endl;
 
-		MPI::COMM_WORLD.Bcast(&(mpiWejscie[0][0][0]),
-				numnerOfProcesses * dlugscSekwencjiDoPrzewidzenia
-						* inputNeurons, MPI::DOUBLE, 0);
+	MPI::COMM_WORLD.Bcast(&(mpiWejscie[0][0][0]),
+			numnerOfProcesses * dlugscSekwencjiDoPrzewidzenia * inputNeurons,
+			MPI::DOUBLE, 0);
 
+	elman** eTab = new elman*[numnerOfProcesses];
+	for (int s = 0; s < size; s++) {
+		if (rank == s) {
 
-		elman** eTab= new elman*[numnerOfProcesses];
-
-		if (rank == 0) {
-
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 6; j++) {
-					wejTab[0][i][j] = mpiWejscie[rank][i][j];
+			for (int i = 0; i < dlugscSekwencjiDoPrzewidzenia; i++) {
+				for (int j = 0; j < inputNeurons; j++) {
+					wejTab[s][i][j] = mpiWejscie[s][i][j];
 
 				}
 			}
-			eTab[rank] = new elman(10000, inputNeurons, 3, 0.5, wejTab[0]);
+			eTab[s] = new elman(iloscIteracji, inputNeurons, 3, 0.5, wejTab[s]);
+//			cout << "rank: " << rank << "  :" << testowaTablica[0] << endl;
+			eTab[s]->elmanNetwork();
+			eTab[s]->testNetwork(testowaTablica);
 		}
-
-		if (rank == 1) {
-			cout<<"rank: "<<rank<<"  :"<<testowaTablica[0]<<endl;
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 6; j++) {
-					wejTab[1][i][j] = mpiWejscie[rank][i][j];
-
-				}
-			}
-
-			eTab[rank] = new elman(10000, inputNeurons, 3, 0.5, wejTab[1]);
-		}
-//	MPI::COMM_WORLD.Reduce(&mypi, &pi, 1, MPI::DOUBLE, MPI::SUM, 0);
-		if (rank == 0) {
-			cout<<"rank: "<<rank<<"  :"<<testowaTablica[0]<<endl;
-			eTab[rank]->elmanNetwork();
-			eTab[rank]->testNetwork(testowaTablica);
-		}
-
-		if (rank == 1) {
-
-			eTab[1]->elmanNetwork();
-			eTab[1]->testNetwork(testowaTablica);
-		}
-		cout << "elman\n";
-
-		//delete e;
-
-		MPI::Finalize();
-		cout << "Wcisnij klawisz aby kontynuowac...";
-		return 0;
 	}
+
+	//delete e;
+
+	MPI::Finalize();
+	cout << "Wcisnij klawisz aby kontynuowac...";
+	return 0;
+}
 
